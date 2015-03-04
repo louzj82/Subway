@@ -1,0 +1,8 @@
+{
+	"name": "Subway IRC Client",
+	"main": "irc.html",
+	"window": {
+    		"toolbar": false,
+		"position": "center"
+  	}
+}

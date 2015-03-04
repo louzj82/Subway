@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="chat.css"/>
+    <script type="text/javascript" src="../../subway_dom.js"></script>
+    <script type="text/javascript" src="format.js"></script>
+    <script type="text/javascript">
+    function test(text){
+	var arr = format(text);
+	var line = create("div", {
+	    children: arr
+	});
+	container.appendChild(line);
+    }
+    </script>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+body {
+    font-family: sans-serif;
+}
+.link {
+    text-decoration: none;
+}
+.line {
+    word-wrap: break-word;
+}
+.line.highlight:not(.private_message) {
+    background-color: #FFB;
+}
+.line.highlight:not(.private_message) > .label_tag, .line.highlight:not(.private_message) > .label_date {
+    color: inherit !important;
+}
+.line.info_user > .label_text {
+    color: #393;
+}
+.line.info_user.mode_set > .label_text {
+    color: #33D;
+    font-weight: bold;
+}
+.line.info_user.user_kick > .label_text {
+    color: #D33;
+    font-weight: bold;
+}
+.line.info_error > .label_tag, .line.info_error > .label_date {
+    color: #F33;
+}
+.line.action > .label_tag {
+    font-weight: bold;
+}
+.text_segment.bold {
+    font-weight: bold;
+}
+.text_segment.underline {
+    text-decoration: underline;
+}
+.inline_image {
+    color: #3F51B5;
+}
+.user_list {
+    position: fixed;
+    top: 10%;
+    right: 0%;
+    height: 80%;
+    min-width: 10em;
+    overflow-y: scroll;
+    border: 2px solid gray;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.user_list > .ui_tab_content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+.user.op {
+    text-decoration: underline;
+}
+.user.voice::after {
+    content: "+";
+}
+.ui_tab_button.tab_button_highlight > .ui_tab_label {
+    color: #33D;
+}
+.ui_tab_button.tab_button_message > .ui_tab_label {
+    color: #D33;
+}
+#container {
+    margin-top: 1.8em;
+}
+#container .ui_tab_bar {
+    position: fixed;
+    top: 0%;
+    margin-top: 0.3em;
+    background-color: white;
+}
+#complement_tip {
+    position: fixed;
+    bottom: calc(1em + 10px);
+    left: 3px;
+    font-weight: bold;
+    color: gray;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+#inputbox {
+    position: fixed;
+    bottom: 0%;
+    margin-bottom: 0.2em;
+    width: calc(100% - 8px);
+    left: 3px;
+    right: 3px;
+    font-size: 1em;
+}
+#space {
+    position: relative;
+    height: calc(1em + 10px);
+}

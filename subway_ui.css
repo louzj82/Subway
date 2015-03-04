@@ -1,0 +1,23 @@
+.ui_tab_bar {
+    padding: 3px;
+}
+.ui_tab_button {
+    background-color: white;
+    color: #999;
+    border: 0.1em solid #999;
+    margin: 0.1em 0.3em;
+    padding: 0.1em 0.3em;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+.ui_tab_button[data-current="true"] {
+    color: black;
+    border: 0.1em solid black;
+}
+.ui_tab_close_button {
+    margin-left: 0.5em;
+}
+.ui_tab_content {
+    padding: 3px;
+}

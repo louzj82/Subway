@@ -1,0 +1,29 @@
+- Requirement
+	channel list
+	multi-server
+	**settings (+SSL)
+- Feature
+	**image (resizable) (suffix)
+	shortcut key
+	date + time / new day <hr> + tooltip / log
+- Fix
+	**scroll (top)
+	link (handle href in format.js)
+	font
+	self
+	tabs wrap
+	**disconnect bug -> +log
+	**highlight pending at current tab
+- ...
+	RFC
+	lower case problem cause
+	style (fooBar vs foo_bar)
+format
+	bold 0002
+	underline 001f
+	color 0003
+	color reset 000f
+dependencies:
+	irc
+	getmac
+	fs-extra

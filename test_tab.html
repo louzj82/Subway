@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="subway_ui.css"/>
+    <script type="text/javascript" src="subway_dom.js"></script>
+    <script type="text/javascript" src="subway_ui.js"></script>
+    <script type="text/javascript">
+    var Tabs, count = 3;
+    function init(){
+	Tabs = new Widget.TabWidget();
+	var Tab1 = new Widget.Widget(create("div", {
+	    textContent: "Tab1"
+	}));
+	var Tab2 = new Widget.Widget(create("div", {
+	    textContent: "Tab2"
+	}));
+	var Tab3 = new Widget.Widget(create("div", {
+	    textContent: "Tab3"
+	}));
+	var Add = create("button", {
+	    textContent: "Add a new Tab",
+	    onclick: function(){
+		count++;
+		var tab = new Widget.Widget(create("div", {
+		    textContent: "Tab"+count
+		}));
+		Tabs.addTab(tab, "Tab_"+count);
+	    }
+	});
+	Tabs.on_change = function(widget){
+	    console.log("changed:");
+	    console.log(widget);
+	}
+	document.body.appendChild(Tabs.element);
+	document.body.appendChild(Add);
+	Tabs.addTab(Tab1, "Tab_1");
+	Tabs.addTab(Tab2, "Tab_2");
+	Tabs.addTab(Tab3, "Tab_3");
+    }
+    </script>
+    <style>
+    body {
+	font-family: sans-serif;
+    }
+    </style>
+  </head>
+  <body onload="init()">
+  </body>
+</html>

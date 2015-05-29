@@ -1,0 +1,8 @@
+{
+	"name": "Layout Test",
+	"main": "layout.html",
+	"window": {
+    		"toolbar": true,
+		"position": "center"
+  	}
+}

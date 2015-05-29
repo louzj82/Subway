@@ -18,6 +18,14 @@ function assertWidget(obj){
 }
 
 
+var Layout = {
+    Container: document.registerElement('layout-container'),
+    HBoxLayout: document.registerElement('layout-HBox'),
+    VBoxLayout: document.registerElement('layout-VBox'),
+    Cell: document.registerElement('layout-cell')
+}
+
+
 var Widget = {
     Widget: function(element){
 	if(element)

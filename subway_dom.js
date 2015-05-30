@@ -61,12 +61,19 @@ function addListeners(element, listeners){
 
 
 function hide(element){
-    element.style.display = "none";
+    element.style.display = 'none';
 }
 
 
 function show(element, display){
+    if(!display)
+	display = '';
     element.style.display = display;
+}
+
+
+function isHidden(element){
+    return (element.style.display == 'none');
 }
 
 

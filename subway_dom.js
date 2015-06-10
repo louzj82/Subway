@@ -52,14 +52,6 @@ function create(type, properties){
 }
 
 
-function addListeners(element, listeners){
-    var I;
-    for(I in listeners)
-	if(listeners.hasOwnProperty(I))
-	    element.addEventListener(I, listeners[I]);
-}
-
-
 function hide(element){
     element.style.display = 'none';
 }

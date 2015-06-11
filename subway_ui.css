@@ -33,7 +33,7 @@ layout-VBox > layout-cell {
     padding: 3px;
 }
 
-widget-tabbar-button {
+widget-tab-bar-button {
     background-color: white;
     color: #999;
     border: 0.1em solid #999;
@@ -44,12 +44,12 @@ widget-tabbar-button {
     -webkit-user-select: none;
 }
 
-widget-tabbar-button[data-current="true"] {
+widget-tab-bar-button[data-current="true"] {
     color: black;
     border: 0.1em solid black;
 }
 
-widget-tabbar-close-button {
+widget-tab-bar-close-button {
     margin-left: 0.5em;
 }
 

@@ -43,15 +43,15 @@ var Layout = {
 
 
 var Base = {
-    AbstractTabBar: document.registerElement('widget-abstract-tabbar', {
+    AbstractTabBar: document.registerElement('widget-abstract-tab-bar', {
 	prototype: {
 	    createdCallback: function(){
-
+		
 	    },
 	    __proto__: HTMLElement.prototype
 	}
     })
-};
+}
 
 
 var Widget = {
@@ -96,7 +96,7 @@ var Widget = {
 	    __proto__: HTMLElement.prototype
 	}
     }),
-    TabBarButton: document.registerElement('widget-tabbar-button', {
+    TabBarButton: document.registerElement('widget-tab-bar-button', {
 	prototype: {
 	    createdCallback: function(){
 		this.tabbar = null;
@@ -105,7 +105,7 @@ var Widget = {
 	    __proto__: HTMLElement.prototype
 	}
     }),
-    TabBarLabel: document.registerElement('widget-tabbar-label', {
+    TabBarLabel: document.registerElement('widget-tab-bar-label', {
 	prototype: {
 	    createdCallback: function(){
 
@@ -113,7 +113,7 @@ var Widget = {
 	    __proto__: HTMLElement.prototype
 	}
     }),
-    TabBarCloseButton: document.registerElement('widget-tabbar-close-button',{
+    TabBarCloseButton: document.registerElement('widget-tab-bar-close-button',{
 	prototype: {
 	    createdCallback: function(){
 		this.tabbar = null;
@@ -122,25 +122,26 @@ var Widget = {
 	    __proto__: HTMLElement.prototype
 	}
     }),
-    TabBar: document.registerElement('widget-tabbar', {
+    TabBar: document.registerElement('widget-tab-bar', {
 	prototype: {
 	    createdCallback: function(){
 		this.$currentTab = null;
 		this.tabs = {};
 		this.$dragSrc = null;
 	    },
-	    addTab: function(name){
-		var label = create('widget-tabbar-label', {
+	    addTab: function(name, tab_closable){
+		var label = create('widget-tab-bar-label', {
 		    textContent: name
 		});
-		var close_button = create('widget-tabbar-close-button', {
-		    textContent: '\u00D7',
-		    tabbar: this,
-		    dataset: {
-			name: name
-		    }
-		});
-		var tab = create('widget-tabbar-button', {
+		if(tab_closable)
+		    var close_button = create('widget-tab-bar-close-button', {
+			textContent: '\u00D7',
+			tabbar: this,
+			dataset: {
+			    name: name
+			}
+		    });
+		var tab = create('widget-tab-bar-button', {
 		    tabbar: this,
 		    draggable: true,
 		    dataset: {
@@ -150,7 +151,7 @@ var Widget = {
 			label,
 			close_button
 		    ]
-		});
+		}, true);
 		if(this.children.length){
 		    tab.dataset.current = 'false';
 		}else{
@@ -177,22 +178,22 @@ var Widget = {
 			this.tabbar.swapTab(this, src);
 		    this.tabbar.$dragSrc = null;
 		}
-		// ----
-		var closeButtonClicked = function(ev){
-		    this.tabbar.$tabclose(this.dataset.name);
-		    ev.stopPropagation();
-		};
-		// ----
 		tab.addEventListener('click', tabClicked);
 		tab.addEventListener('dragstart', dragstart);
 		tab.addEventListener('dragover', dragover);
 		tab.addEventListener('drop', drop);
-		close_button.addEventListener('click', closeButtonClicked);
+		if(tab_closable){
+		    var closeButtonClicked = function(ev){
+			this.tabbar.$tabclose(this.dataset.name);
+			ev.stopPropagation();
+		    }
+		    close_button.addEventListener('click', closeButtonClicked);
+		}
 		this.tabs[name] = tab;
 		this.appendChild(tab);
 	    },
 	    swapTab: function(tab1, tab2){
-		var temp = create('widget-tabbar-button');
+		var temp = create('widget-tab-bar-button');
 		this.insertBefore(temp, tab1);
 		this.insertBefore(tab1, tab2);
 		this.insertBefore(tab2, temp);
@@ -215,12 +216,12 @@ var Widget = {
 		var prev = tab.previousElementSibling;
 		var next = tab.nextElementSibling;
 		if(name == this.$currentTab){
-		    if(prev){
-			this.$currentTab = prev.dataset.name;
-			prev.dataset.current = 'true';
-		    }else if(next){
+		    if(next){
 			this.$currentTab = next.dataset.name;
 			next.dataset.current = 'true';		    
+		    }else if(prev){
+			this.$currentTab = prev.dataset.name;
+			prev.dataset.current = 'true';
 		    }else{
 			this.$currentTab = null;
 		    }
@@ -244,7 +245,28 @@ var Widget = {
 
 
 var Binding = {
-    TabWidgetBinding: function(){
-
+    TabWidget: function(tab_bar, tab_content){
+	this.tab_content = tab_content;
+	this.tab_bar = tab_bar;
+	this.tabs = {};
+	var _this = this;
+	var tabChanged = function(ev){
+	    _this.tab_content.setCurrentWidget(_this.tabs[ev.detail.tab_name]);
+	};
+	var tabClosed = function(ev){
+	    _this.tab_content.removeWidget(_this.tabs[ev.detail.tab_name], _this.tabs[ev.detail.prev], _this.tabs[ev.detail.next]);
+	}
+	this.tab_bar.addEventListener('change', tabChanged);
+	this.tab_bar.addEventListener('tabclose', tabClosed);
+	if(!Binding.TabWidget.$init){
+	    assignMethods(Binding.TabWidget, {
+		addTab: function(widget, label, closable){
+		    this.tab_content.addWidget(widget);
+		    this.tab_bar.addTab(label, closable);
+		    this.tabs[label] = widget;
+		}
+	    });
+	    Binding.TabWidget.$init = true;
+	}
     }
 }

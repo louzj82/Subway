@@ -36,17 +36,32 @@ layout-VBox > layout-cell {
 widget-tab-bar-button {
     background-color: white;
     color: #999;
-    border: 0.1em solid #999;
-    margin: 0.1em 0.3em;
-    padding: 0.1em 0.3em;
     cursor: pointer;
     -moz-user-select: none;
     -webkit-user-select: none;
 }
 
+widget-tab-bar[layout="horizontal"] > widget-tab-bar-button {
+    display: inline;
+    border: 0.1em solid #999;
+    margin: 0.1em 0.3em;
+    padding: 0.1em 0.3em;
+}
+
+widget-tab-bar[layout="vertical"] > widget-tab-bar-button {
+    display: block;
+}
+
 widget-tab-bar-button[data-current="true"] {
     color: black;
+}
+
+widget-tab-bar[layout="horizontal"] > widget-tab-bar-button[data-current="true"] {
     border: 0.1em solid black;
+}
+
+widget-tab-bar[layout="vertical"] widget-tab-bar-close-button {
+    float: right;
 }
 
 widget-tab-bar-close-button {

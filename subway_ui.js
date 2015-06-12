@@ -42,18 +42,6 @@ var Layout = {
 };
 
 
-var Base = {
-    AbstractTabBar: document.registerElement('widget-abstract-tab-bar', {
-	prototype: {
-	    createdCallback: function(){
-		
-	    },
-	    __proto__: HTMLElement.prototype
-	}
-    })
-}
-
-
 var Widget = {
     TabContent: document.registerElement('widget-tab-content', {
 	prototype: {
@@ -128,6 +116,14 @@ var Widget = {
 		this.$currentTab = null;
 		this.tabs = {};
 		this.$dragSrc = null;
+		Object.defineProperty(this, 'layout', {
+		    get: function(){
+			return this.getAttribute('layout');
+		    },
+		    set: function(value){
+			this.setAttribute('layout', value);
+		    }
+		});
 	    },
 	    addTab: function(name, tab_closable){
 		var label = create('widget-tab-bar-label', {
@@ -238,7 +234,7 @@ var Widget = {
 		});
 		this.dispatchEvent(ev);
 	    },
-	    __proto__: Base.AbstractTabBar.prototype
+	    __proto__: HTMLElement.prototype
 	}
     })
 }

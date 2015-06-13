@@ -6,18 +6,6 @@ function assignMethods(constructor, methods){
 }
 
 
-function assert(obj, type){
-    if(typeof obj != type)
-	throw TypeError('Type not matching - ' + type + ' Expected');
-}
-
-
-function assertWidget(obj){
-    if(!(obj instanceof Widget.Widget))
-	throw TypeError('Type not matching - Expect a widget');
-}
-
-
 var Layout = {
     Container: document.registerElement('layout-container', {
 	prototype: {
@@ -87,6 +75,7 @@ var Widget = {
     TabBarButton: document.registerElement('widget-tab-bar-button', {
 	prototype: {
 	    createdCallback: function(){
+		this.draggable = true;
 		this.tabbar = null;
 		this.dataset.name = '';
 	    },
@@ -104,6 +93,7 @@ var Widget = {
     TabBarCloseButton: document.registerElement('widget-tab-bar-close-button',{
 	prototype: {
 	    createdCallback: function(){
+		this.textContent = '\u00D7';
 		this.tabbar = null;
 		this.dataset.name = '';
 	    },
@@ -131,7 +121,6 @@ var Widget = {
 		});
 		if(tab_closable)
 		    var close_button = create('widget-tab-bar-close-button', {
-			textContent: '\u00D7',
 			tabbar: this,
 			dataset: {
 			    name: name
@@ -139,7 +128,6 @@ var Widget = {
 		    });
 		var tab = create('widget-tab-bar-button', {
 		    tabbar: this,
-		    draggable: true,
 		    dataset: {
 			name: name
 		    },

@@ -2,10 +2,62 @@
 <html>
   <head>
     <link rel="stylesheet" href="subway_ui.css" />
+    <style>
+    body { font-family: sans-serif; }
+    #tab_content span { font-size: 3em; margin: 0.3em; }
+    </style>
     <script type="text/javascript" src="subway_dom.js"></script>
     <script type="text/javascript" src="subway_ui.js"></script>
+    <script type="text/javascript" src="subway_utils.js"></script>
+    <script type="text/javascript" src="subway_i18n.js"></script>
+    <script type="text/javascript">
+    var test_tab_bar, test_tab_content, add, tabs, count = 3;
+    function init(){
+	assignGlobalObject({
+	    test_tab_bar: '#tab_bar',
+	    test_tab_content: '#tab_content',
+	    add: '#add'
+	});
+	tabs = new Binding.TabWidget(test_tab_bar, test_tab_content);
+	tabs.addTab(create('span', {
+	    textContent: '1'
+	}), 'Tab_1', false);
+	tabs.addTab(create('span', {
+	    textContent: '2'
+	}), 'Tab_2', true);
+	tabs.addTab(create('span', {
+	    textContent: '3'
+	}), 'Tab_3', true);
+	var add_clicked = function(){
+	    count++;
+	    var tab = create('span', {
+		textContent: count
+	    });
+	    tabs.addTab(tab, 'Tab_'+count, true);
+	}
+	add.addEventListener('click', add_clicked);
+    }
+    window.addEventListener('load', translateUI);
+    window.addEventListener('load', init);
+    </script>
   </head>
   <body>
-    <widget-tab-content id="content"></widget-tab-content>
+    <layout-container>
+      <layout-vbox>
+	<layout-cell>
+	  <layout-hbox>
+	    <layout-cell style="width: 5em;">
+	      <widget-tab-bar id="tab_bar" layout="vertical"></widget-tab-bar>
+	    </layout-cell>
+	    <layout-cell>
+	      <widget-tab-content id="tab_content"></widget-tab-content>
+	    </layout-cell>
+	  </layout-hbox>
+	</layout-cell>
+	<layout-cell style="height: 1em;">
+	  <button id="add" data-title="New Tab!" data-text="Add a new Tab"></button>
+	</layout-cell>
+      </layout-vbox>
+    </layout-container>
   </body>
 </html>
